@@ -1,18 +1,13 @@
 # Установка и настройка Postgres Pro
 
+## Содержание
 1. [Исходные данные](#source)  
-3. [Справочная информация](#info)  
-4. [Выполнение](#exec)  
+1. [Справочная информация](#info)  
+1. [Выполнение](#exec)  
     - [Задача 1](#task1)  
 
 ## Исходные данные <a name="source"></a>
-### Ссылки на ресурсы
-- [Защита соединений TCP/IP с применением SSL](https://postgrespro.ru/docs/postgrespro/14/ssl-tcp)
-- [Поддержка SSL](https://postgrespro.ru/docs/postgrespro/14/libpq-ssl)
-- [Файл pg_hba.conf](https://postgrespro.ru/docs/postgrespro/14/auth-pg-hba-conf)
-- [Установка и настройка pgAdmin 4 в режиме сервера](https://interface31.ru/tech_it/2021/01/ustanovka-i-nastroyka-pgadmin-4-v-rezhime-servera.html)
-- [Установка Postgres Pro 10 для 1С:Предприятие на Debian / Ubuntu](https://interface31.ru/tech_it/2018/10/ustanovka-postgresql-10-dlya-1spredpriyatie-na-debian-ubuntu.html)
-- [ Настройка PostgreSQL для работы с клиентами через SSL](http://www.zaweel.ru/2016/08/postgresql-ssl.html)
+
 
 ### Состав стенда
 | № | Полное имя  | IP     |              |ОС                    | ПО                       |
@@ -313,3 +308,82 @@ a2enmod rewrite
 # И перезапустим веб-сервер:
 systemctl reload apache2
 ```
+
+
+# Postgres Pro Standard 15
+Продукт
+Postgres Pro Standard 15
+
+Поддерживаемые конфигурации: версии операционной системы и архитектуры
+debian 10: aarch64, x86_64
+debian 11: x86_64, aarch64, s390x
+
+Инструкции по установке
+```sh
+wget https://repo.postgrespro.ru/std-15/keys/pgpro-repo-add.sh
+sh pgpro-repo-add.sh
+``
+Если наш продукт единственный Postgres на вашей машине и вы хотите сразу получить готовую к употреблению базу:
+
+apt-get install postgrespro-std-15
+Если у вас уже установлен другой Postgres и вы хотите чтобы он продолжал работать параллельно (в том числе и для апгрейда с более старой major-версии):
+```sh
+apt-get install postgrespro-std-15-contrib
+/opt/pgpro/std-15/bin/pg-setup initdb
+/opt/pgpro/std-15/bin/pg-setup service enable
+/opt/pgpro/std-15/bin/pg-setup service start
+```
+Если вы хотите создать базу пригодную для использования с продуктами 1С:
+
+apt-get install postgrespro-std-15-contrib
+/opt/pgpro/std-15/bin/pg-setup initdb --tune=1c
+/opt/pgpro/std-15/bin/pg-setup service enable
+/opt/pgpro/std-15/bin/pg-setup service start
+В состав Postgres Pro Standard входят многочисленные дополнительные компоненты, которые могут быть установлены с помощью apt-get после установки собственно Postgres
+
+Компоненты
+```sh
+orafce-std-15 3.24.4
+pg-filedump-std-15 14.4
+pg-portal-modify-std-15 0.3.3
+pg-probackup-std-15 2.6.0
+pg-repack-std-15 1.4.8
+pgbouncer 1.18.0
+pgpro-controldata 15.1.0
+pgpro-stats-std-15 1.5
+pldebugger-std-15 1.1.4
+postgrespro-std-15 15.2.1
+postgrespro-std-15-client 15.2.1
+postgrespro-std-15-contrib 15.2.1
+postgrespro-std-15-devel 15.2.1
+postgrespro-std-15-libs 15.2.1
+postgrespro-std-15-plperl 15.2.1
+postgrespro-std-15-plpython3 15.2.1
+postgrespro-std-15-pltcl 15.2.1
+postgrespro-std-15-server 15.2.1
+tds-fdw-std-15 2.0.2
+postgrespro-std-15-jit 15.2.1
+plv8-std-15 3.1.5
+mamonsu 3.5.2
+pgpro-pgbadger 11.6
+pgpro-pwr-std-15 4.1.1
+postgrespro-std-15-docs 15.2.1
+postgrespro-std-15-docs-ru 15.2.1
+libsybdb5 1.1.36
+oracle-fdw-std-15 2.5.0
+postgrespro-std-15-test 15.2.1
+freetds 1.3.3
+freetds-libs 1.3.3
+liblz4-1_7 131
+liblz4-devel 131
+lz4-devel 1.8.3
+```
+
+
+### Ссылки на ресурсы
+- [Защита соединений TCP/IP с применением SSL](https://postgrespro.ru/docs/postgrespro/14/ssl-tcp)
+- [Поддержка SSL](https://postgrespro.ru/docs/postgrespro/14/libpq-ssl)
+- [Файл pg_hba.conf](https://postgrespro.ru/docs/postgrespro/14/auth-pg-hba-conf)
+- [Установка и настройка pgAdmin 4 в режиме сервера](https://interface31.ru/tech_it/2021/01/ustanovka-i-nastroyka-pgadmin-4-v-rezhime-servera.html)
+- [Установка Postgres Pro 10 для 1С:Предприятие на Debian / Ubuntu](https://interface31.ru/tech_it/2018/10/ustanovka-postgresql-10-dlya-1spredpriyatie-na-debian-ubuntu.html)
+- [ Настройка PostgreSQL для работы с клиентами через SSL](http://www.zaweel.ru/2016/08/postgresql-ssl.html)
